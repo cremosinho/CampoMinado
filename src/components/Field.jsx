@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, ProgressBarAndroidComponent } from 'react-native'
+import { StyleSheet, View, Text, TouchableWithoutFeedback } from 'react-native'
 import params from '../params'
 import Mine from './Mine'
 import Flag from './Flag'
@@ -22,11 +22,13 @@ export default class Field extends React.Component{
         }
 
         return(
-            <View style={this.styleField}>
-                {!mined && opened && nearMines > 0 ? (<Text style={[styles.label, {color: this.color}]}>{nearMines}</Text>) : false}
-                {mined && opened ? <Mine/> : false}
-                {flagged && !opened? <Flag/> : false}
-            </View>
+            <TouchableWithoutFeedback onPress={this.props.onOpen} onLongPress={this.props.onSelect}>
+                <View style={this.styleField}>
+                    {!mined && opened && nearMines > 0 ? (<Text style={[styles.label, {color: this.color}]}>{nearMines}</Text>) : false}
+                    {mined && opened ? <Mine/> : false}
+                    {flagged && !opened? <Flag/> : false}
+                </View>
+            </TouchableWithoutFeedback>
         )
     }
 }
